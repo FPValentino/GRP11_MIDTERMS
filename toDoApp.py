@@ -1,80 +1,152 @@
-# currently implemented standards:
-# 1. Docstring for functions
-# 2. Indentation of code blocks
-# 3. Implementing naming convention (snake_case for functions and variables)
-
 # toDoApp.py
+"""A simple to-do list application that allows users to add, view, and remove tasks."""
 import os
 
-tasks=[]
-TASKS_FILE= "tasks.txt" #UPPERCASE to indicate a constant as mentioned by pylint
+TASKS_FILE = "tasks.txt"
+
+
+def clear_screen():
+    """Clear the terminal screen for better UI experience."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def load_tasks():
     """Load tasks from file if it exists.
+
+    Returns:
+        list: A list of tasks loaded from the file, or an empty list if file doesn't exist.
     """
-    global tasks
     if os.path.exists(TASKS_FILE):
         with open(TASKS_FILE, "r", encoding="utf-8") as f:
-            tasks = [line.strip() for line in f.readlines()]
-    else:
-        tasks = []
+            return [line.strip() for line in f.readlines()]
+    return []
 
-def save_tasks():
+
+def save_tasks(tasks):
     """Save tasks to file.
+
+    Args:
+        tasks (list): The list of tasks to save to the file.
     """
     with open(TASKS_FILE, "w", encoding="utf-8") as f:
         for task in tasks:
             f.write(task + "\n")
 
-def add_task(task) :
+
+def add_task(tasks, task):
     """Add a new task to the task list.
 
     Args:
+        tasks (list): The current list of tasks.
         task (str): The task to be added.
+
+    Returns:
+        list: The updated list of tasks with the new task added.
     """
     tasks.append(task)
-    save_tasks()
-    print("task added!")
+    save_tasks(tasks)
+    print("\n✓ Task added successfully!")
+    input("\nPress Enter to continue...")
+    return tasks
 
-def show_tasks():
+
+def show_tasks(tasks):
     """Shows all tasks in the task list.
-    """
-    if len(tasks)==0 :
-        print("no tasks yet")
-    else:
-        for i in range (len(tasks)):
-            print(i+1,".",tasks[i])
 
-def remove_task(tasknumber):
+    Args:
+        tasks (list): The list of tasks to display.
+    """
+    print("\n" + "="*50)
+    print("YOUR TASKS".center(50))
+    print("="*50)
+    
+    if len(tasks) == 0:
+        print("\n  No tasks yet. Add one to get started!")
+    else:
+        print()
+        for i, task in enumerate(tasks, start=1):
+            print(f"  [{i}] {task}")
+    
+    print("="*50)
+    input("\nPress Enter to continue...")
+
+
+def remove_task(tasks, tasknumber):
     """Removes task from the task list.
 
     Args:
+        tasks (list): The current list of tasks.
         tasknumber (int): The index of the task to be removed (1-based index).
+
+    Returns:
+        list: The updated list of tasks with the specified task removed.
     """
-    tasks.pop(tasknumber)
-    print("task removed!!")
+    if 0 <= tasknumber < len(tasks):
+        removed_task = tasks.pop(tasknumber)
+        save_tasks(tasks)
+        print(f"\n✓ Task '{removed_task}' removed successfully!")
+    else:
+        print("\n✗ Invalid task number!")
+    input("\nPress Enter to continue...")
+    return tasks
+
 
 def main():
-    """The main function to run the to-do app.
-    """
-    load_tasks()
+    """The main function to run the to-do app."""
+    tasks = load_tasks()
     while True:
-        print("1.| Add Task   |")
-        print("2.| Show Tasks |")
-        print("3.| Remove Task|")
-        print("4.| Exit       |")
-        ch = input("enter choice : ")
-        if ch=="1":
-            t = input("enter task : ")
-            add_task(t)
-        elif ch=="2":
-            show_tasks()
-        elif ch=="3":
-            n=int(input("enter task no to remove: "))
-            remove_task(n)
-        elif ch=="4":
-            print("Exiting program")
+        clear_screen()
+        print("\n" + "="*50)
+        print("TO-DO LIST APPLICATION".center(50))
+        print("="*50)
+        print("\n  [1] Add Task")
+        print("  [2] Show Tasks")
+        print("  [3] Remove Task")
+        print("  [4] Exit")
+        print("\n" + "="*50)
+        
+        choice = input("\nEnter your choice (1-4): ")
+        
+        if choice == "1":
+            clear_screen()
+            print("\n" + "="*50)
+            print("ADD NEW TASK".center(50))
+            print("="*50)
+            task_input = input("\nEnter task: ")
+            if task_input.strip():
+                tasks = add_task(tasks, task_input)
+            else:
+                print("\n✗ Task cannot be empty!")
+                input("\nPress Enter to continue...")
+                
+        elif choice == "2":
+            clear_screen()
+            show_tasks(tasks)
+            
+        elif choice == "3":
+            clear_screen()
+            show_tasks(tasks)
+            if len(tasks) > 0:
+                try:
+                    task_num = int(input("\nEnter task number to remove: "))
+                    tasks = remove_task(tasks, task_num - 1)
+                except ValueError:
+                    print("\n✗ Please enter a valid number!")
+                    input("\nPress Enter to continue...")
+            else:
+                input("\nPress Enter to continue...")
+                
+        elif choice == "4":
+            clear_screen()
+            print("\n" + "="*50)
+            print("Thank you for using To-Do List App!".center(50))
+            print("="*50 + "\n")
             break
+            
         else:
-            print("wrong choice!!")
-main()
+            print("\n✗ Invalid choice! Please enter 1-4.")
+            input("\nPress Enter to continue...")
+
+
+if __name__ == "__main__":
+    main()
