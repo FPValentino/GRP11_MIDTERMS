@@ -60,14 +60,12 @@ def show_tasks(tasks, pause=True):
     print("\n" + "="*50)
     print("YOUR TASKS".center(50))
     print("="*50)
-    
     if len(tasks) == 0:
         print("\n  No tasks yet. Add one to get started!")
     else:
         print()
         for i, task in enumerate(tasks, start=1):
             print(f"  [{i}] {task}")
-    
     print("="*50)
     if pause:
         input("\nPress Enter to continue...")
@@ -106,9 +104,9 @@ def main():
         print("  [3] Remove Task")
         print("  [4] Exit")
         print("\n" + "="*50)
-        
+
         choice = input("\nEnter your choice (1-4): ")
-        
+
         if choice == "1":
             clear_screen()
             print("\n" + "="*50)
@@ -120,11 +118,11 @@ def main():
             else:
                 print("\nTask cannot be empty!")
                 input("\nPress Enter to continue...")
-                
+
         elif choice == "2":
             clear_screen()
             show_tasks(tasks)
-            
+
         elif choice == "3":
             clear_screen()
             show_tasks(tasks, pause=False)
@@ -137,7 +135,6 @@ def main():
                     input("\nPress Enter to continue...")
             else:
                 input("\nPress Enter to continue...")
-                
         elif choice == "4":
             clear_screen()
             print("\n" + "="*50)
@@ -148,7 +145,6 @@ def main():
             print("Valentino, Ferdinand".center(50))
             print()
             break
-            
         else:
             print("\nInvalid choice! Please enter 1-4.")
             input("\nPress Enter to continue...")
