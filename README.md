@@ -69,6 +69,34 @@ A simple command-line to-do list application that allows users to add, view, and
 - Improved readability with f-strings for output formatting
 - Added newline spacing in menu for better user experience
 
+## FINAL VERSION - Additional Refinements & Bug Fixes
+
+### Changes Made:
+1. **UI Flow Improvement - Bug fix on delete task**
+   - Added optional `pause` parameter to `show_tasks()` function
+   - Set `pause=False` when displaying tasks before removal to eliminate redundant "Press Enter" prompt
+
+2. **Exit Screen Enhancement**
+   - Centered developer names on exit screen using `.center(50)` method
+   - Consistent formatting with bordered layout (50-character width)
+   - Professional presentation of team member credits:
+     - Que, Adrian
+     - Que, Desmond
+     - Valentino, Ferdinand
+
+3. **Code Readability**
+   - Updated `show_tasks()` docstring to document the `pause` parameter
+   - Maintained backward compatibility with default `pause=True`
+   - Clear and explicit function calls: `show_tasks(tasks, pause=False)`
+
+### Technical Details:
+- Modified `show_tasks(tasks, pause=True)` to accept optional boolean parameter
+- Conditional execution of `input("\nPress Enter to continue...")` based on `pause` value
+- Consistent use of `.center(50)` for all centered text elements
+- Maintained all previous features from V3 (pylint compliance, file persistence, error handling)
+
+---
+
 ## Changelog
 
 ### Version 3 (V3) - UI Enhancement & Complete Pylint Compliance (QUE, D.)
@@ -89,7 +117,6 @@ A simple command-line to-do list application that allows users to add, view, and
 **UI Enhancements:**
 - Added `clear_screen()` function for better user experience (uses `cls` on Windows, `clear` on Unix)
 - Redesigned UI with decorative borders and centered titles
-- Enhanced visual feedback with symbols (✓ for success, ✗ for errors)
 - Added "Press Enter to continue..." prompts for flow control
 - Improved task display with bordered layout and bracket notation `[1]`
 - Added comprehensive input validation:
