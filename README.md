@@ -8,6 +8,31 @@ Valentino, Ferdinand Paul
 ## To-Do Application
 A simple command-line to-do list application that allows users to add, view, and remove tasks. Tasks are persisted to a file (`tasks.txt`).
 
+## Setup and Usage
+
+### Requirements
+- Python 3.6+ installed on your system
+
+### How to Run
+1. Navigate to the project directory:
+   ```
+   cd GRP11_MIDTERMS
+   ```
+
+2. Run the program:
+   ```
+   python toDoApp.py
+   ```
+
+### How to Use
+- **Main Menu**: Choose from 4 options by entering 1-4
+  - `[1] Add Task` - Enter a new task to add to your list
+  - `[2] Show Tasks` - Display all your current tasks
+  - `[3] Remove Task` - Delete a task by entering its number
+  - `[4] Exit` - Close the application
+
+- **Task Persistence**: All tasks are automatically saved to `tasks.txt` and will be loaded when you restart the program
+
 ## Coding Standards Implemented
 
 ### 1. Documentation
