@@ -45,16 +45,17 @@ def add_task(tasks, task):
     """
     tasks.append(task)
     save_tasks(tasks)
-    print("\n✓ Task added successfully!")
+    print("\nTask added successfully!")
     input("\nPress Enter to continue...")
     return tasks
 
 
-def show_tasks(tasks):
+def show_tasks(tasks, pause=True):
     """Shows all tasks in the task list.
 
     Args:
         tasks (list): The list of tasks to display.
+        pause (bool): Whether to wait for user input before continuing. Default is True.
     """
     print("\n" + "="*50)
     print("YOUR TASKS".center(50))
@@ -68,7 +69,8 @@ def show_tasks(tasks):
             print(f"  [{i}] {task}")
     
     print("="*50)
-    input("\nPress Enter to continue...")
+    if pause:
+        input("\nPress Enter to continue...")
 
 
 def remove_task(tasks, tasknumber):
@@ -84,9 +86,9 @@ def remove_task(tasks, tasknumber):
     if 0 <= tasknumber < len(tasks):
         removed_task = tasks.pop(tasknumber)
         save_tasks(tasks)
-        print(f"\n✓ Task '{removed_task}' removed successfully!")
+        print(f"\nTask '{removed_task}' removed successfully!")
     else:
-        print("\n✗ Invalid task number!")
+        print("\nInvalid task number!")
     input("\nPress Enter to continue...")
     return tasks
 
@@ -116,7 +118,7 @@ def main():
             if task_input.strip():
                 tasks = add_task(tasks, task_input)
             else:
-                print("\n✗ Task cannot be empty!")
+                print("\nTask cannot be empty!")
                 input("\nPress Enter to continue...")
                 
         elif choice == "2":
@@ -125,13 +127,13 @@ def main():
             
         elif choice == "3":
             clear_screen()
-            show_tasks(tasks)
+            show_tasks(tasks, pause=False)
             if len(tasks) > 0:
                 try:
                     task_num = int(input("\nEnter task number to remove: "))
                     tasks = remove_task(tasks, task_num - 1)
                 except ValueError:
-                    print("\n✗ Please enter a valid number!")
+                    print("\nPlease enter a valid number!")
                     input("\nPress Enter to continue...")
             else:
                 input("\nPress Enter to continue...")
@@ -140,11 +142,15 @@ def main():
             clear_screen()
             print("\n" + "="*50)
             print("Thank you for using To-Do List App!".center(50))
-            print("="*50 + "\n")
+            print("="*50)
+            print("Que, Adrian".center(50))
+            print("Que, Desmond".center(50))
+            print("Valentino, Ferdinand".center(50))
+            print()
             break
             
         else:
-            print("\n✗ Invalid choice! Please enter 1-4.")
+            print("\nInvalid choice! Please enter 1-4.")
             input("\nPress Enter to continue...")
 
 
